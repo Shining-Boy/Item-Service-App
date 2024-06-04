@@ -14,6 +14,7 @@ import hello.itemservice.domain.item.ItemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -34,6 +35,14 @@ public class BasicItemController {
         model.addAttribute("items", items);
 
         return "basic/items";
+    }
+
+    @GetMapping("/{itemId}")
+    public String item(@PathVariable long itemId, Model model){
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+
+        return "basic/item";
     }
     
     // 테스트용 데이터 추가
